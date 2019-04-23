@@ -17,5 +17,7 @@ public interface CohortService {
 	List<Cohort> findAll();
 	
 	String joinCohort(User user, String cohortToken) ;
+	
+	public String disjoinCohort(User user, String cohortToken);
   
 }

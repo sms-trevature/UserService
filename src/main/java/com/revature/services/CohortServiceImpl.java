@@ -65,5 +65,31 @@ public class CohortServiceImpl implements CohortService {
 			}
 		}
 	}
+  	
+  	@Override
+	@Transactional
+	public String disjoinCohort(User user, String cohortToken) {
+		Cohort cohort = cohortRepo.findByCohortToken(cohortToken);
+		User nUser = userRepo.findByEmailIgnoreCase(user.getEmail());
+		if(cohort == null) {
+			return "Not Found";
+		} else if(nUser == null){
+			return "Bad Request";
+		} else {
+			try {
+				//Set<User> nUsers = cohort.getUsers();
+				//nUsers.add(user);
+				//cohort.setUsers(nUsers);
+				Set<Cohort> nCohorts = nUser.getCohorts();
+				nCohorts.remove(cohort);
+				nUser.setCohorts(nCohorts);
+				userRepo.save(nUser);
+				//cohortRepo.save(cohort);
+				return "OK";
+			} catch (Exception e) {
+				return "Internal Server Error";
+			}
+		}
+  	}
 
 }
