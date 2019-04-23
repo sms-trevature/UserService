@@ -34,7 +34,7 @@ public class CohortController {
 	}
 	
 	@GetMapping
-    @CognitoAuth(roles = {CognitoRoles.ADMIN, CognitoRoles.STAGING_MANAGER})
+    //@CognitoAuth(roles = {CognitoRoles.ADMIN, CognitoRoles.STAGING_MANAGER})
 	public List<Cohort> findAll() {
 		return cohortService.findAll();
 	}
@@ -63,6 +63,22 @@ public class CohortController {
 		
 			
 	}
+	@PostMapping("removeuser/{cohortToken}")
+	public ResponseEntity<String> disjoinCohort(@RequestBody User user, @PathVariable String cohortToken) {
+		String status = cohortService.disjoinCohort(user, cohortToken);
+		switch (status) {//This is not enough responses, will fix in post
+		case "Not Found":
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		case "Bad Request":
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		case "OK":
+			return new ResponseEntity<String>(HttpStatus.OK);
+
+		default:
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(TransactionSystemException.class)
