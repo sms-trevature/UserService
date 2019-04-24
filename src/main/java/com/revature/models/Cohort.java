@@ -54,9 +54,29 @@ public class Cohort {
 	@NotNull
 	private User trainer;
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "cotrainer_id", nullable = true)
+	private User coTrainer;
+	
 	public Cohort() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Cohort(int cohortId, @NotNull String cohortName, String cohortDescription, String cohortToken,
+			Address address, LocalDate startDate, LocalDate endDate, Set<User> users, @NotNull User trainer,
+			User coTrainer) {
+		super();
+		this.cohortId = cohortId;
+		this.cohortName = cohortName;
+		this.cohortDescription = cohortDescription;
+		this.cohortToken = cohortToken;
+		this.address = address;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.users = users;
+		this.trainer = trainer;
+		this.coTrainer = coTrainer;
 	}
 
 	public Cohort(int cohortId, @NotNull String cohortName, @NotNull String cohortDescription, String cohortToken,
@@ -157,6 +177,14 @@ public class Cohort {
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
+	}
+
+	public User getCoTrainer() {
+		return coTrainer;
+	}
+
+	public void setCoTrainer(User coTrainer) {
+		this.coTrainer = coTrainer;
 	}
 
 	@Override
