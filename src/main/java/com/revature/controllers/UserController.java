@@ -59,7 +59,7 @@ public class UserController {
 		return new ResponseEntity<User>(resultBody, headers, resultStatus);
 	}
 
-	@CognitoAuth(roles = { CognitoRoles.STAGING_MANAGER, CognitoRoles.TRAINER })
+	//@CognitoAuth(roles = { CognitoRoles.STAGING_MANAGER, CognitoRoles.TRAINER })
 	@GetMapping("cohorts/{id}")
 	public List<User> findAllByCohortId(@PathVariable int id) {
 		return userService.findAllByCohortId(id);
