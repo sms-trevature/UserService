@@ -34,6 +34,16 @@ public class CohortServiceImpl implements CohortService {
 		cohortRepo.saveAndFlush(cohort);
 		return cohort;
 	}
+	
+	@Override
+	public Cohort saveById(int id, Cohort cohort) {
+		cohort.setCohortToken(UUID.randomUUID().toString());
+		cohort.setCohortId(0);
+		cohort.setTrainer(userRepo.getOne(id));
+		cohortRepo.saveAndFlush(cohort);
+		return cohort;
+	}
+
 
 	@Override
 	public List<Cohort> findAll() {
@@ -65,5 +75,71 @@ public class CohortServiceImpl implements CohortService {
 			}
 		}
 	}
+  	
+  	@Override
+	@Transactional
+	public String disjoinCohort(User user, String cohortToken) {
+		Cohort cohort = cohortRepo.findByCohortToken(cohortToken);
+		User nUser = userRepo.findByEmailIgnoreCase(user.getEmail());
+		if(cohort == null) {
+			return "Not Found";
+		} else if(nUser == null){
+			return "Bad Request";
+		} else {
+			try {
+				//Set<User> nUsers = cohort.getUsers();
+				//nUsers.add(user);
+				//cohort.setUsers(nUsers);
+				Set<Cohort> nCohorts = nUser.getCohorts();
+				nCohorts.remove(cohort);
+				nUser.setCohorts(nCohorts);
+				userRepo.save(nUser);
+				//cohortRepo.save(cohort);
+				return "OK";
+			} catch (Exception e) {
+				return "Internal Server Error";
+			}
+		}
+  	}
+
+  	
+  	@Override
+	@Transactional
+	public String addCotrainer(String email, String cohortToken) {
+		Cohort cohort = cohortRepo.findByCohortToken(cohortToken);
+		User nUser = userRepo.findByEmailIgnoreCase(email);
+		if(cohort == null) {
+			return "Not Found";
+		} else if(nUser == null){
+			return "Bad Request";
+		} else {
+			try {
+				cohort.setCoTrainer(nUser);
+				cohortRepo.save(cohort);
+				return "OK";
+			} catch (Exception e) {
+				return "Internal Server Error";
+			}
+		}
+  	}
+  	
+  	@Override
+	@Transactional
+	public String removeCotrainer(String cohortToken) {
+		Cohort cohort = cohortRepo.findByCohortToken(cohortToken);
+		if(cohort == null) {
+			return "Not Found";
+//		} else if(nUser == null){
+//			return "Bad Request";
+		} else {
+			try {
+				cohort.setCoTrainer(null);
+				cohortRepo.save(cohort);
+				return "OK";
+			} catch (Exception e) {
+				return "Internal Server Error";
+			}
+		}
+  	}
 
 }
