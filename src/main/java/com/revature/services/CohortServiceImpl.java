@@ -142,4 +142,10 @@ public class CohortServiceImpl implements CohortService {
 		}
   	}
 
+  	@Override
+  	@Transactional
+  	public Cohort update(Cohort cohort) {
+  		cohortRepo.saveAndFlush(cohort);
+  		return cohort;
+  	}
 }

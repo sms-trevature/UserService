@@ -11,16 +11,22 @@ public interface UserService {
 	//
 	// public List<User> findAll();
 	//
-	 public User findOneById(int id);
+	public User findOneById(int id);
+
 	//
-	 public List<User> findAllByCohortId(int id);
+	public List<User> findAllByCohortId(int id);
+
 	//
-	 public User saveUser(User u);
+	public User saveUser(User u);
+
 	//
-	 public User updateProfile(User u);
+	public User updateProfile(User u);
+
 	//
-	 public User findOneByEmail(String email);
-	 
+	public User findOneByEmail(String email);
+
+	public List<User> findAll();
+
 	//
 	// public CohortUserListOutputDto saveUsers(UserListInputDto userList, int id)
 	// throws IOException;

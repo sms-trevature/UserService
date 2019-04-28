@@ -113,6 +113,11 @@ public class UserServiceImpl implements UserService {
 	public User findOneByEmail(String email) {
 		return userRepo.findByEmailIgnoreCase(email);
 	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepo.findAll();
+	}
 	
 
 }

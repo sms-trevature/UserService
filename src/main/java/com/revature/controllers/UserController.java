@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.cognito.annotations.CognitoAuth;
 import com.revature.cognito.constants.CognitoRoles;
 import com.revature.models.User;
+import com.revature.repos.UserRepo;
 import com.revature.services.UserService;
 
 @RestController
@@ -30,8 +31,8 @@ public class UserController {
 
 	@CognitoAuth(roles = { "staging-manager" })
 	@GetMapping
-	String findAll() {
-		return "works";
+	List<User> findAll() {
+		return userService.findAll();
 	}
 
 	@GetMapping("{id}")
@@ -59,13 +60,13 @@ public class UserController {
 		return new ResponseEntity<User>(resultBody, headers, resultStatus);
 	}
 
-	//@CognitoAuth(roles = { CognitoRoles.STAGING_MANAGER, CognitoRoles.TRAINER })
+	@CognitoAuth(roles = { CognitoRoles.STAGING_MANAGER, CognitoRoles.TRAINER })
 	@GetMapping("cohorts/{id}")
 	public List<User> findAllByCohortId(@PathVariable int id) {
 		return userService.findAllByCohortId(id);
 	}
 
-	//@CognitoAuth(roles = { "staging-manager" })
+	@CognitoAuth(roles = { "staging-manager" })
 	@PostMapping
 	public User save(@RequestBody User user) {
 		return userService.saveUser(user);
