@@ -25,5 +25,7 @@ public interface CohortService {
 	String removeCotrainer(String cohortToken);
 
 	Cohort saveById(int id, Cohort cohort);
+
+	Cohort update(Cohort cohort);
   
 }

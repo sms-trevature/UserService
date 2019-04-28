@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,7 +36,7 @@ public class CohortController {
 	}
 	
 	@GetMapping
-    //@CognitoAuth(roles = {CognitoRoles.ADMIN, CognitoRoles.STAGING_MANAGER})
+   @CognitoAuth(roles = {CognitoRoles.ADMIN, CognitoRoles.STAGING_MANAGER})
 	public List<Cohort> findAll() {
 		return cohortService.findAll();
 	}
@@ -45,10 +46,15 @@ public class CohortController {
 		return cohortService.saveById(id, cohort);
 	}
 	
-	//@CognitoAuth(roles= {CognitoRoles.STAGING_MANAGER, CognitoRoles.TRAINER})
+	@CognitoAuth(roles= {CognitoRoles.STAGING_MANAGER, CognitoRoles.TRAINER})
 	@PostMapping
 	public Cohort save(@RequestBody Cohort cohort) {
 		return cohortService.save(cohort);
+	}
+	
+	@PutMapping
+	public Cohort update(@RequestBody Cohort cohort) {
+		return cohortService.update(cohort);
 	}
 	
 	@PostMapping("token/{cohortToken}")
