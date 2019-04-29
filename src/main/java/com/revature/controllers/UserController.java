@@ -30,8 +30,8 @@ public class UserController {
 
 	@CognitoAuth(roles = { "staging-manager" })
 	@GetMapping
-	String findAll() {
-		return "works";
+	List<User> findAll() {
+		return userService.findAll();
 	}
 
 	@GetMapping("{id}")

@@ -46,6 +46,12 @@ public class UserServiceImpl implements UserService {
 	private CognitoUtil cognitoUtil;
 
 	@Override
+	public List<User> findAll() {
+		
+		return userRepo.findAll();
+	}
+	
+	@Override
 	public User findOneById(int id) {
 		return userRepo.getOne(id);
 	}
@@ -113,6 +119,5 @@ public class UserServiceImpl implements UserService {
 	public User findOneByEmail(String email) {
 		return userRepo.findByEmailIgnoreCase(email);
 	}
-	
 
 }
