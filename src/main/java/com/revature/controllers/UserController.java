@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.cognito.annotations.CognitoAuth;
 import com.revature.cognito.constants.CognitoRoles;
 import com.revature.models.User;
+import com.revature.repos.UserRepo;
 import com.revature.services.UserService;
 
 @RestController
@@ -65,7 +66,7 @@ public class UserController {
 		return userService.findAllByCohortId(id);
 	}
 
-	//@CognitoAuth(roles = { "staging-manager" })
+	@CognitoAuth(roles = { "staging-manager" })
 	@PostMapping
 	public User save(@RequestBody User user) {
 		return userService.saveUser(user);

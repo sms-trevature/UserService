@@ -37,12 +37,21 @@ public class UserControllerTest {
 	final List<User> idUserMap = new ArrayList<User>();
 	final Map<String,User> propsUserMap = new HashMap<String,User>();
 
+<<<<<<< HEAD
 	/*
 	 * @Test public void testFindAll() { String result = tester.findAll();
 	 * Assert.assertEquals("check user Controller find all", "works", result);
 	 * 
 	 * }
 	 */
+=======
+//	@Test
+//	public void testFindAll() {
+//		String result = tester.findAll();
+//		Assert.assertEquals("check user Controller find all", "works", result);
+//		
+//	}
+>>>>>>> 1d88016845e392d2d5fa21cffc4291fcc78b6989
 
 	@Test
 	public void testFindById() {
