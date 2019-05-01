@@ -66,15 +66,16 @@ public class UserController {
 		return userService.findAllByCohortId(id);
 	}
 
-	@CognitoAuth(roles = { "staging-manager" })
-	@PostMapping
+	//@CognitoAuth(roles = { "staging-manager" })
+	@PostMapping("insert")
 	public User save(@RequestBody User user) {
 		return userService.saveUser(user);
 	}
 	
-	@PatchMapping
+	@PostMapping
 	public User update(@RequestBody User user) {
 		return userService.updateProfile(user);
 	}
+	
 
 }
